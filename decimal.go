@@ -2022,6 +2022,12 @@ func RescalePair(d1 Decimal, d2 Decimal) (Decimal, Decimal) {
 }
 
 func unquoteIfQuoted(value interface{}) (string, error) {
+	// When value is nil, return a zero value
+	// Maybe this should return an error, because it's not clear what the fractional precision
+	if value == nil {
+		return "0.0", nil
+	}
+
 	var bytes []byte
 
 	switch v := value.(type) {
